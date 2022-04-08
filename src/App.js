@@ -20,6 +20,16 @@ function App() {
     setPassword(event.target.value)
   }
   const onSubmit = event => {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then(credential => {
+      const user = credential.user
+      console.log(user);
+    })
+    .then(error => {
+      const errorMessage = error.message
+      console.log(errorMessage);
+    })
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -27,16 +37,6 @@ function App() {
     }
 
     setValidated(true);
-    event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(credential => {
-        const user = credential.user
-        console.log(user);
-      })
-      .then(error => {
-        const errorMessage = error.message
-        console.log(errorMessage);
-    })
   }
   return (
     <div className="container">
